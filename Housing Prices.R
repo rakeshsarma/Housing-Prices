@@ -49,6 +49,8 @@ table(house_data$date)
 year(house_data$date)
 house_data$year_diff_built <- year(house_data$date)-house_data$yr_built # year diffrernce between built yr and 2014
 house_data$year_diff_renov <- year(house_data$date)-house_data$yr_renovated # year diffrernce between renovated yr and 2014
+# THis type of feature selection is very bad. Because this considers houses that are renovated in 2014 also give zero in year_diff_renov
+# column. 
 house_data$year_diff_renov <- ifelse(house_data$year_diff_renov == 2014, 0, house_data$year_diff_renov) 
 str(house_data)
 # remove renovated year and year built
@@ -81,3 +83,5 @@ model <- lm(house_data_train$price ~ ., data = house_data_train)
 summary(model)
 stepAIC(model,direction = "both")
 vif(model)
+
+
